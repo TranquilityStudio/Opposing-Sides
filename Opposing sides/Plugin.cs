@@ -41,13 +41,13 @@ namespace Opposing_sides
                 {
                     ev.IsAllowed = false;
                 }
-                if (Round.EscapedScientists >= Round.EscapedDClasses)
+                else
                 {
                     ev.IsAllowed = true;
                 }
             }
 
-            if (config.Reactivate == false)
+            else
             {
                 if (Round.EscapedDClasses >= config.EscapeCount)
                 {
