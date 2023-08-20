@@ -1,5 +1,4 @@
-﻿#define BETA
-using Exiled.API.Features;
+﻿using Exiled.API.Features;
 using Exiled.API.Interfaces;
 using Exiled.Events.EventArgs.Player;
 using PlayerRoles;
@@ -20,9 +19,7 @@ namespace Opposing_sides
 
         public override void OnEnabled()
         {
-            #if BETA
             Log.Warn("The plugin is in beta. More features will appear in the plugin soon. If bugs are found, leave a feedback by clicking on the link capybara-scpsl.com/feedback .");
-            #endif
             Exiled.Events.Handlers.Player.TriggeringTesla += OnActivatingTesla;
             base.OnEnabled();
         }
@@ -37,7 +34,7 @@ namespace Opposing_sides
         {
             if (config.Reactivate == true)
             {
-                if (Round.EscapedDClasses > Round.EscapedScientists)
+                if (Round.EscapedDClasses > Round.EscapedScientists && ev.Player.Role.Team == Team.ChaosInsurgency)
                 {
                     ev.IsAllowed = false;
                 }
@@ -46,12 +43,15 @@ namespace Opposing_sides
                     ev.IsAllowed = true;
                 }
             }
-
             else
             {
-                if (Round.EscapedDClasses >= config.EscapeCount)
+                if (Round.EscapedDClasses >= config.EscapeCount && ev.Player.Role.Team == Team.ChaosInsurgency)
                 {
                     ev.IsAllowed = false;
+                }
+                else
+                {
+                    ev.IsAllowed = true;
                 }
             }
         }
